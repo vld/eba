@@ -1,6 +1,11 @@
 EBA::Application.routes.draw do
-  resources :issues
 
+  get "logout" => "sessions#destroy", :as => "logout"
+  get "login" => "sessions#new", :as => "login"
+  resources :sessions
+  resources :issues do
+    resources :comments, :only => [:create]
+  end
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
@@ -51,7 +56,7 @@ EBA::Application.routes.draw do
 
   # You can have the root of your site routed with "root"
   # just remember to delete public/index.html.
-  # root :to => 'welcome#index'
+  root :to => 'issues#index'
 
   # See how all your routes lay out with "rake routes"
 

@@ -20,11 +20,12 @@
   = @issue.code
 %p
   %b State:
-  = @issue.state
+  = string_state(@issue.state)
 %p
   %b Manager:
   = @issue.manager
-
+- if current_manager
+  =render '/comments/comment_form'
 = link_to 'Edit', edit_issue_path(@issue)
 \|
 = link_to 'Back', issues_path

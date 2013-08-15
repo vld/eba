@@ -1,0 +1,6 @@
+= form_tag issue_comments_path(@issue) do
+  .field
+    = label_tag :body
+    = text_area_tag :body, params[:body]
+  .actions
+    = submit_tag "Post"
