@@ -1,0 +1,30 @@
+%p#notice= notice
+
+%p
+  %b Customer name:
+  = @issue.customer_name
+%p
+  %b Customer email:
+  = @issue.customer_email
+%p
+  %b Department:
+  = @issue.department
+%p
+  %b Subject:
+  = @issue.subject
+%p
+  %b Body:
+  = @issue.body
+%p
+  %b Code:
+  = @issue.code
+%p
+  %b State:
+  = @issue.state
+%p
+  %b Manager:
+  = @issue.manager
+
+= link_to 'Edit', edit_issue_path(@issue)
+\|
+= link_to 'Back', issues_path
