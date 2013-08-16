@@ -5,9 +5,9 @@ class CommentsController < ApplicationController
     @comment = Comment.new(params[:comment])
     @comment.manager = current_manager
     if @comment.save
-      redirect_to @issue, :notice => "Comment created"
+      redirect_to @issue, notice: 'Comment created'
     else
-      redirect_to @issue, :error => "Comment error"
+      redirect_to @issue, error: 'Comment error'
     end
   end
 

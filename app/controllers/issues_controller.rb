@@ -1,10 +1,12 @@
 class IssuesController < ApplicationController
+  before_filter :autheticate!, :only => [:change_state, :take_issue]
+  before_filter :get_issue, :except => [:index, :new, :create]
+  
   def index
     @issues = Issue.all
   end
 
   def show
-    @issue = Issue.find(params[:id])
   end
 
   def new
@@ -12,7 +14,6 @@ class IssuesController < ApplicationController
   end
 
   def edit
-    @issue = Issue.find(params[:id])
   end
 
   def create
@@ -25,9 +26,21 @@ class IssuesController < ApplicationController
     end
   end
 
-  def update
-    @issue = Issue.find(params[:id])
+  def take_issue
+    @issue.manager = @current_manager
+    if @issue.save
+      @issue.comments.create(body: "Issue got new assignee: #{@issue.manager.username}")
+      redirect_to @issue, notice: 'Issue was assigned to you'
+    else
+      redirect_to @issue, error: 'Assigning occurs error'
+    end
+  end
 
+  def change_state
+    state = params[:state]
+  end
+
+  def update
     if @issue.update_attributes(params[:issue])
       redirect_to @issue, notice: 'Issue was successfully updated.'
     else
@@ -36,9 +49,12 @@ class IssuesController < ApplicationController
   end
 
   def destroy
-    @issue = Issue.find(params[:id])
     @issue.destroy
 
     redirect_to issues_url
+  end
+
+  def get_issue
+    @issue = Issue.find(params[:id])
   end
 end
