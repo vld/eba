@@ -1,7 +1,7 @@
 class Issue < ActiveRecord::Base
   include ActionView::Helpers::IssuesHelper
   belongs_to :manager
-  attr_accessible :body, :code, :customer_email, :customer_name, :department, :state, :subject
+  attr_accessible :body, :code, :customer_email, :customer_name, :department, :state, :subject, :delta
 
   after_create :generate_code
   scope :closed, where(state: [:completed, :cancelled])
