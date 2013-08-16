@@ -23,7 +23,7 @@
       %td= issue.body
       %td= issue.code
       %td= issue.state
-      %td= issue.manager
+      %td= issue.manager.username if issue.manager
       %td= link_to 'Show', issue
       %td= link_to 'Edit', edit_issue_path(issue)
       %td= link_to 'Destroy', issue, :method => :delete, :data => { :confirm => 'Are you sure?' }

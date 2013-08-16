@@ -8,7 +8,7 @@ class ApplicationController < ActionController::Base
   end
 
   def autheticate!
-    redirect_to :root, error: 'You should be logged in' unless @current_manager
+    redirect_to :root, error: 'You should be logged in' unless current_manager
   end
   helper_method :current_manager
 end

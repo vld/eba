@@ -22,10 +22,14 @@
   = string_state(@issue.state)
 %p
   %b Manager:
-  = @issue.manager.username
+  = @issue.manager.username if @issue.manager
 - if current_manager
-  = link_to 'Take', take_issue_path(@issue), :method => :put
-  =render '/comments/comment_form'
+  
+  - if current_manager == @issue.manager
+    - @issue.state_events.each do |ev|
+      %p= link_to "Change state to " << string_state(@issue.send("#{ev}_transition").to), change_state_issue_path(@issue, :event => ev), :method => :put
+  = link_to 'Take', take_issue_path(@issue), :method => :put unless @issue.manager
+  = render '/comments/comment_form'
 
 - @issue.comments.each do |com|
   %p

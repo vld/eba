@@ -7,7 +7,7 @@ module IssuesHelper
       "Waiting for Customer"
     when "on_hold"
       "On Hold"
-    when "closed"
+    when "completed"
       "Completed"
     when "cancelled"
       "Cancelled"

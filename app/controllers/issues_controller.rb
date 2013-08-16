@@ -37,7 +37,12 @@ class IssuesController < ApplicationController
   end
 
   def change_state
-    state = params[:state]
+    event = params[:event]
+    if @issue.send(event)
+      redirect_to @issue, notice: 'State was changed'
+    else
+      redirect_to @issue, error: 'State changing occurs error'
+    end
   end
 
   def search
