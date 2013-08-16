@@ -41,13 +41,13 @@ class IssuesController < ApplicationController
   end
 
   def search
-    query = params[:search]
+    query = params[:query]
     if query =~ /[A-Z]{3}-\d{5}/
       @issues = Issue.find_all_by_code(query)
     else
       @issues = Issue.where("body ilike ? OR subject ilike ?", "%#{query}%", " %#{query}% ")
     end
-    render 'index'
+    render :template => 'issues/index'
   end
 
   def update
