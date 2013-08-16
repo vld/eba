@@ -1,0 +1,4 @@
+= "Hello, #{@name}!"
+= "Some changes with Your issue # #{@issue.code}."
+You could watch on it here:
+= link_to "#{@issue.code}", issue_url(@issue, only_path: false)

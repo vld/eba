@@ -3,7 +3,7 @@ class Issue < ActiveRecord::Base
   belongs_to :manager
   attr_accessible :body, :code, :customer_email, :customer_name, :department, :state, :subject, :delta
 
-  after_create :generate_code
+  after_create :generate_code, :send_mail
   scope :closed, where(state: [:completed, :cancelled])
   scope :unassigned, where(manager_id: nil)
   has_many :comments
@@ -11,6 +11,10 @@ class Issue < ActiveRecord::Base
   def generate_code
     self.code = "ABC-" << "%05d" % self.id.to_s
     self.save
+  end
+
+  def send_mail
+    CustomerMailer.issue_created_email(self).deliver
   end
 
   state_machine :initial => :wait_staff do

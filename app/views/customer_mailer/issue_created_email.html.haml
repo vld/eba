@@ -1,0 +1,4 @@
+= "Hello, #{@name}!"
+= "We have recieved Your query and created issue # #{@issue.code}."
+You could watch on it and edit by link:
+=link_to "#{@issue.code}", issue_url(@issue, only_path: false)

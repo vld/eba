@@ -5,8 +5,6 @@ class Comment < ActiveRecord::Base
   after_create :mail_owner
 
   def mail_owner
-    owner_mail = self.issue.customer_email
-    body = self.body
-    p "Send mail to #{owner_mail}. With #{body}"
+    CustomerMailer.commented_email(self.issue).deliver
   end
 end
