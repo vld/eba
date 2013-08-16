@@ -1,6 +1,6 @@
 class IssuesController < ApplicationController
   before_filter :autheticate!, :only => [:change_state, :take_issue]
-  before_filter :get_issue, :except => [:index, :new, :create]
+  before_filter :get_issue, :except => [:index, :new, :create, :search]
   
   def index
     @issues = Issue.all
@@ -38,6 +38,16 @@ class IssuesController < ApplicationController
 
   def change_state
     state = params[:state]
+  end
+
+  def search
+    query = params[:search]
+    if query =~ /[A-Z]{3}-\d{5}/
+      @issues = Issue.find_all_by_code(query)
+    else
+      @issues = Issue.where("body ilike ? OR subject ilike ?", "%#{query}%", "%#{query}%")
+    end
+    render 'index'
   end
 
   def update

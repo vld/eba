@@ -26,6 +26,9 @@
   = @issue.manager
 - if current_manager
   =render '/comments/comment_form'
+- @issue.comments.each do |com|
+  %p
+    = com.body
 = link_to 'Edit', edit_issue_path(@issue)
 \|
 = link_to 'Back', issues_path

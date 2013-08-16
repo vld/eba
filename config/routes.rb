@@ -4,6 +4,9 @@ EBA::Application.routes.draw do
   get "login" => "sessions#new", :as => "login"
   resources :sessions
   resources :issues do
+    put :change_state, :on => :member
+    put :take_issue, :on => :member
+    get :search, :on => :collection
     resources :comments, :only => [:create]
   end
 
