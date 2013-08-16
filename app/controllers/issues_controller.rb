@@ -3,7 +3,18 @@ class IssuesController < ApplicationController
   before_filter :get_issue, :except => [:index, :new, :create, :search]
   
   def index
-    @issues = Issue.all
+    scoped = params[:scoped]
+    if scoped
+      if ['unassigned', 'closed'].include?(scoped)
+        @issues = Issue.send(scoped)
+      elsif scoped == 'open'
+        @issues = Issue.without_states('completed', 'cancelled')
+      elsif scoped == 'on hold'
+        @issues = Issue.with_state('on_hold')
+      end
+    else
+      @issues = Issue.all
+    end
   end
 
   def show

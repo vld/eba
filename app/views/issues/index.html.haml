@@ -1,5 +1,10 @@
 %h1 Listing issues
 
+= link_to "Unassigned", issues_path(scoped: 'unassigned')
+= link_to "Open", issues_path(scoped: 'open')
+= link_to "On hold", issues_path(scoped: 'on hold')
+= link_to "Closed", issues_path(scoped: 'closed')
+
 %table
   %tr
     %th Customer name
