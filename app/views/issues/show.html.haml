@@ -1,5 +1,4 @@
 %p#notice= notice
-
 %p
   %b Customer name:
   = @issue.customer_name
@@ -23,9 +22,11 @@
   = string_state(@issue.state)
 %p
   %b Manager:
-  = @issue.manager
+  = @issue.manager.username
 - if current_manager
+  = link_to 'Take', take_issue_path(@issue), :method => :put
   =render '/comments/comment_form'
+
 - @issue.comments.each do |com|
   %p
     = com.body

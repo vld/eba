@@ -26,8 +26,8 @@ class IssuesController < ApplicationController
     end
   end
 
-  def take_issue
-    @issue.manager = @current_manager
+  def take
+    @issue.manager = current_manager
     if @issue.save
       @issue.comments.create(body: "Issue got new assignee: #{@issue.manager.username}")
       redirect_to @issue, notice: 'Issue was assigned to you'
@@ -45,7 +45,7 @@ class IssuesController < ApplicationController
     if query =~ /[A-Z]{3}-\d{5}/
       @issues = Issue.find_all_by_code(query)
     else
-      @issues = Issue.where("body ilike ? OR subject ilike ?", "%#{query}%", "%#{query}%")
+      @issues = Issue.where("body ilike ? OR subject ilike ?", "%#{query}%", " %#{query}% ")
     end
     render 'index'
   end

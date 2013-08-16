@@ -5,7 +5,7 @@ EBA::Application.routes.draw do
   resources :sessions
   resources :issues do
     put :change_state, :on => :member
-    put :take_issue, :on => :member
+    put :take, :on => :member
     get :search, :on => :collection
     resources :comments, :only => [:create]
   end
