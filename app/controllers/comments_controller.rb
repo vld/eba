@@ -2,7 +2,7 @@ class CommentsController < ApplicationController
   before_filter :current_issue
   
   def create
-    @comment = Comment.new(params[:comment])
+    @comment = @issue.comments.build(body: params[:body])
     @comment.manager = current_manager
     if @comment.save
       redirect_to @issue, notice: 'Comment created'
